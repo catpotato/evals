@@ -55,22 +55,6 @@ class Graph:
             semmester = int(40*(raw_year - float(year)) + 10)
             queries.append(q.filter(and_(Evaluation.year == year, Evaluation.semmester == semmester)))
 
-
-        '''# from that make a list of all of the years you cant use
-        forbidden_years = allowed_years
-        for year in year_range:
-            forbidden_years.remove(year)
-
-        # then narrow your query down by eliminating the years that aren't allowed
-        for raw_year in forbidden_years:
-            year = int(raw_year)
-            # weird math due to how the database is set up (semmester 1 is 10, semmester 2 is 30)
-            semmester = int(40*(raw_year - float(year)) + 10)
-            q = q.filter(and_(Evaluation.year != year, Evaluation.semmester != semmester))'''
-
-        #q = q.filter(and_(Evaluation.year == 2015, Evaluation.semmester == 30))
-        #q = q.filter(and_(Evaluation.year == 2015, Evaluation.semmester == 10))
-
         final = []
         for query in queries:
             final.extend(query.all())
@@ -124,9 +108,6 @@ class Graph:
         return graph_path
 
 if __name__ == '__main__':
-
-
-    Session = sessionmaker(bind=engine)
 
     graph = Graph((2016.5,2012.0),"PHYS", False, 133)
     graph.make_graph()

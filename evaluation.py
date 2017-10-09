@@ -37,9 +37,5 @@ class Evaluation(Base):
         self.grades = self.set_grades([0,0,0,0,0,0,0,0,0,0,0,0])
         self.effectiveness = self.set_effectiveness([0,0,0,0])
 
-    def __str__(self):
-        #return json.dumps(vars(self))
-        pass
-
     def uniqueify(self):
         self.unique_crn = self.dept + str(self.course) + self.section + str(self.year) + str(self.semmester) + self.professor
