@@ -9,14 +9,14 @@ engine = create_engine('sqlite:///data.db', echo=True)
 Base.metadata.create_all(engine)
 
 class Query:
-    def __init__(self, period, dept, prof, course):
+    def __init__(self, period, dept, course, prof):
         self.period = period
-        # in the format of [(20XX, semmester), (20XX, semmester)]
+        # in the format of [20XX.semmester, 20XX.semmester]
         self.dept = dept
         self.prof = prof
         self.course = course
-        self.graph_made = False
-        self.graph_path = "/"
+        self.query_as_list_dict = []
+        self.not_queried = True
 
     '''
     takes in query parameters and returns a list of a bunch of info
@@ -27,13 +27,13 @@ class Query:
     ]
     '''
 
-    def get_query(self):
+    def query(self):
 
         Session = sessionmaker(bind=engine)
         session = Session()
 
         # set up database
-        q = session.query(Evaluation.responses, Evaluation.grades, Evaluation.effectiveness)
+        q = session.query(Evaluation)
 
         # dept
         if(bool(self.dept) == True):
@@ -50,7 +50,6 @@ class Query:
             print(self.course)
             q = q.filter(Evaluation.course == self.course)
 
-
         # period
         # make a list of all of the years of the request
         date_range = [self.period[0]]
@@ -66,19 +65,24 @@ class Query:
         for forbidden_date in forbidden_dates:
             q = q.filter(Evaluation.date != forbidden_date)
 
-        return q
+        for u in q.all():
+            self.query_as_list_dict.append(u.__dict__)
 
-    def query_to_list(self, query):
-        return query.all()
+        self.not_queried = False
+
+    def get_query(self):
+        if(self.not_queried):
+            self.query()
+        return self.query_as_list_dict
 
     def get_all_grades(self):
 
         # takes all the data and adds it together
         all_grades = [0,0,0,0,0,0,0,0,0,0,0,0]
 
-        for responses, raw_grades in self.query_to_list(self.get_query()):
-            for i, grade in enumerate(json.loads(raw_grades)):
-                all_grades[i] += round(float(responses)*grade)
+        for q in self.get_query():
+            for i, grade in enumerate(json.loads(q['grades'])):
+                all_grades[i] += round(float(q['responses'])*grade)
 
         return all_grades
 
@@ -86,10 +90,10 @@ class Query:
 
         all_ratings = [0,0,0,0,0]
 
-        query_list = self.query_to_list(self.get_query)
+        query_list = self.get_query()
 
-        for _, _, ratings in query_list:
-            for i, rating in enumerate(json.loads(ratings)):
+        for q in query_list:
+            for i, rating in enumerate(json.loads(q['effectiveness'])):
                 all_ratings[i] += ratings
 
         # normalize percentages so that 100% is 1
@@ -98,50 +102,28 @@ class Query:
 
         return all_ratings
 
-    def get_easiest(self):
-        pass
-
-    def get_hardest(self):
-        pass
-
-    def get_best(self):
-        pass
-
-    def get_worst(self):
-        pass
-
 
 
     def make_graph(self):
-        if self.graph_made != True:
 
-            # make graph
-            raw = ('A','A-','B+','B','B-','C+','C','C-','D+','D','D-','FAILURE')
-            grade_values = raw[::-1]
-            y_pos = np.arange(len(grade_values))
-            grades = self.get_all()
-            grades.reverse()
-            print(grades)
+        # make graph
+        raw = ('A','A-','B+','B','B-','C+','C','C-','D+','D','D-','FAILURE')
+        grade_values = raw[::-1]
+        y_pos = np.arange(len(grade_values))
+        grades = self.get_all_grades()
+        grades.reverse()
+        print(grades)
 
-            y_pos = np.arange(len(grade_values))
+        y_pos = np.arange(len(grade_values))
 
-            plt.bar(y_pos, grades, align='center', alpha=0.5)
-            plt.xticks(y_pos, grade_values)
-            plt.ylabel('students')
-            plt.title('sheehan\'s creative outlet')
+        plt.bar(y_pos, grades, align='center', alpha=0.5)
+        plt.xticks(y_pos, grade_values)
+        plt.ylabel('students')
+        plt.title('sheehan\'s creative outlet')
 
-            plt.show()
-
-
-
-            graph_path = "/"
-            self.graph_made = True
-
-    '''def get_graph_path(self):
-        self.make_graph()
-        return graph_path'''
+        plt.show()
 
 if __name__ == '__main__':
 
-    graph = Query((2016.5,2012.0),"PHYS", False, 133)
-    graph.make_graph()
+    query = Query((2016.5,2012.0),"PHYS", 133, False)
+    query.make_graph()
