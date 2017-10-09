@@ -19,6 +19,7 @@ class Evaluation(Base):
     responses = Column(Integer)
     grades = Column(String)
     effectiveness = Column(String)
+    date = Column(Integer)
 
     def set_grades(self, _grades):
         self.grades = json.dumps(_grades)
