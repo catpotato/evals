@@ -40,8 +40,8 @@ if __name__ == '__main__':
     br.open("https://fac-eval.lafayette.edu")
 
     br.select_form(nr=1)
-    br.form['username'] = 'addisc'
-    br.form['password'] = 'dtd3RDCUcZP/'
+    br.form['username'] = # nice try
+    br.form['password'] = # boyo
 
     br.submit()
 

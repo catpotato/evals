@@ -65,8 +65,12 @@ class Query:
         for forbidden_date in forbidden_dates:
             q = q.filter(Evaluation.date != forbidden_date)
 
+        # convert to dict
         for u in q.all():
             self.query_as_list_dict.append(u.__dict__)
+
+        for query in self.query_as_list_dict:
+            query['grades'] = json.loads(query['grades'])
 
         self.not_queried = False
 
