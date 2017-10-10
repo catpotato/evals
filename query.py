@@ -43,7 +43,7 @@ class Query:
         # prof
         if(bool(self.prof) == True):
             print(self.prof)
-            q = q.filter(Evaluation.prof == self.prof)
+            q = q.filter(Evaluation.professor == self.prof)
 
         # course
         if(bool(self.course) == True):
@@ -71,6 +71,7 @@ class Query:
 
         for query in self.query_as_list_dict:
             query['grades'] = json.loads(query['grades'])
+            query['effectiveness'] = json.loads(query['effectiveness'])
 
         self.not_queried = False
 
