@@ -6,13 +6,48 @@ import copy
 '''
 to use this bad boy:
 
-send a query like this
+~~~
 
-Query((2016.5,2012.0),False, False, False)
+if you send a query like this, it will look through all the data
+
+    > Processor(Query((2016.5,2011.0), False, False, False))
+
+if you wanted to find the easiest course in all of the data, you write:
+
+    > print(processor.get_processed_data()['course']['difficulty']['max'])
+    > {'course': u'484', 'professor': u'Van Gulick', 'mean_effectiveness': 4.6500000000000004, 'dept': u'ME', 'grades': [21.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 'mean_grade': 3.9595000000000002, 'effectiveness': [0.685, 0.28, 0.035, 0.0, 0.0]}
+
+the easiest professor is similar:
+
+    > print(processor.get_processed_data()['professor']['difficulty']['max'])
+    > {'course': u'271', 'professor': u'Cohea', 'mean_effectiveness': 4.8900000000000006, 'dept': u'THTR', 'grades': [8.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 'mean_grade': 3.9670000000000001, 'effectiveness': [0.89, 0.11, 0.0, 0.0, 0.0]}
+
+you can even do the easiest department:
+
+    > print(processor.get_processed_data()['professor']['difficulty']['max'])
+    > {'course': u'210', 'professor': u'Luo', 'mean_effectiveness': 4.2949999999999999, 'dept': u'FLL', 'grades': [11.0, 11.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 'mean_grade': 3.7905000000000002, 'effectiveness': [0.49, 0.39, 0.065, 0.045, 0.0]}
+
+~~~
+
+you can change the time period like this (.5 means second semmester, .0 means first)
+
+    > Processor(Query((2016.5,2013.5), False, False, False))
+
+limit it to a professor like this
+
+    > Processor(Query((2016.5,2013.5), False, False, 'Gil'))
+
+limit it to a department like this:
+
+    > Processor(Query((2016.5,2013.5), 'ART', False, 'Gil'))
+
+and even a class if you want, but you will only get a single result
+
+    > Processor(Query((2016.5,2013.5), 'ART', 206, 'Gil'))
+
+also, the query object just needs to spit out a pandas dataframe, so we can change that if we want
 
 '''
-
-#class Performace:
 
 
 class Processor:
@@ -122,7 +157,7 @@ class Processor:
     def __init__(self, query):
         self.query = query
         self.info = {"dept": query.dept, "course": query.course, "professor": query.prof}
-        self.data = pd.DataFrame(query.get_query())
+        self.data = query.get_query()
         self.processed_data = {}
 
         self.pre_process()
@@ -132,4 +167,4 @@ class Processor:
 
 if __name__ == '__main__':
     processor = Processor(Query((2016.5,2015.0), False, False, False))
-    print(processor.get_processed_data()['course']['difficulty']['max'])
+    print(processor.get_processed_data()['dept']['difficulty']['max'])
