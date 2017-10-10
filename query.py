@@ -4,6 +4,7 @@ from operator import add
 all_dates = [2016.5,2016.0,2015.5,2015.0,2014.5,2014.0,2013.5,2013.0,2012.5,2012.0,]
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 engine = create_engine('sqlite:///data.db', echo=True)
 Base.metadata.create_all(engine)
@@ -16,6 +17,7 @@ class Query:
         self.prof = prof
         self.course = course
         self.query_as_list_dict = []
+        self.query_as_dataframe = pd.DataFrame()
         self.not_queried = True
 
     '''
@@ -73,62 +75,11 @@ class Query:
             query['grades'] = json.loads(query['grades'])
             query['effectiveness'] = json.loads(query['effectiveness'])
 
+        self.query_as_dataframe = pd.DataFrame(self.query_as_list_dict)
+
         self.not_queried = False
 
     def get_query(self):
         if(self.not_queried):
             self.query()
-        return self.query_as_list_dict
-
-    def get_all_grades(self):
-
-        # takes all the data and adds it together
-        all_grades = [0,0,0,0,0,0,0,0,0,0,0,0]
-
-        for q in self.get_query():
-            for i, grade in enumerate(json.loads(q['grades'])):
-                all_grades[i] += round(float(q['responses'])*grade)
-
-        return all_grades
-
-    def get_all_ratings(self):
-
-        all_ratings = [0,0,0,0,0]
-
-        query_list = self.get_query()
-
-        for q in query_list:
-            for i, rating in enumerate(json.loads(q['effectiveness'])):
-                all_ratings[i] += ratings
-
-        # normalize percentages so that 100% is 1
-        for i, rating in enumerate(all_ratings):
-            all_ratings[i] = rating/float(len(query_list))
-
-        return all_ratings
-
-
-
-    def make_graph(self):
-
-        # make graph
-        raw = ('A','A-','B+','B','B-','C+','C','C-','D+','D','D-','FAILURE')
-        grade_values = raw[::-1]
-        y_pos = np.arange(len(grade_values))
-        grades = self.get_all_grades()
-        grades.reverse()
-        print(grades)
-
-        y_pos = np.arange(len(grade_values))
-
-        plt.bar(y_pos, grades, align='center', alpha=0.5)
-        plt.xticks(y_pos, grade_values)
-        plt.ylabel('students')
-        plt.title('sheehan\'s creative outlet')
-
-        plt.show()
-
-if __name__ == '__main__':
-
-    query = Query((2016.5,2012.0),"PHYS", 133, False)
-    query.make_graph()
+        return self.query_as_dataframe
