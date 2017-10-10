@@ -1,0 +1,92 @@
+
+NOTE: (Able to select time interval over which all of these stats are defined in every page)
+
+-------------- MAIN --------------
+
+graph all of grades of Lafayette over time
+
+professor:
+  Easiest professor in the whole school
+    - graph of their grades, graph of their ratings
+  Hardest professor in the whole school
+    - '''
+  Best professor in the whole school
+    - '''
+  Worst professor in the whole school
+    - '''
+
+department:
+  Easiest department in the whole school
+    - graph of their grades, graph of their ratings
+  Hardest department in the whole school
+    - '''
+  Best department in the whole school
+    - '''
+  Worst department in the whole school
+    - '''
+
+course:
+  Easiest course in the whole school
+    - graph of its grades, graph of its ratings
+  Hardest course in the whole school
+    - '''
+  Best course in the whole school
+    - '''
+  Worst course in the whole school
+    - '''
+
+||  can select a department from here
+\/
+
+-------- DEPARTMENT PAGES --------
+
+professor:
+  Easiest professor in the department
+    - graph of their grades, graph of their ratings
+  Hardest professor in the department
+    - '''
+  Best professor in the department
+    - '''
+  Worst professor in the department
+    - '''
+
+
+course:
+  Easiest course in the department
+    - graph of its grades, graph of its ratings
+  Hardest course in the department
+    - '''
+  Best course in the department
+    - '''
+  Worst course in the department
+    - '''
+
+|| can select a professor from here
+\/
+
+|| can select a course from here
+\/
+
+--------- PROFESSOR PAGES --------
+
+course:
+  Easiest course of this professor
+    - graph of its grades, graph of its ratings
+  Hardest course of this professor
+    - '''
+  Best course of this professor
+    - '''
+  Worst course of this professor
+    - '''
+
+---------- COURSE PAGES ----------
+
+course:
+  Easiest professor of this course
+    - graph of their grades, graph of their ratings
+  Hardest professor of this course
+    - '''
+  Best professor of this course
+    - '''
+  Worst professor of this course
+    - '''

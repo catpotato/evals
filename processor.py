@@ -12,7 +12,7 @@ Query((2016.5,2012.0),False, False, False)
 
 '''
 
-class Performace:
+#class Performace:
 
 
 class Processor:
@@ -38,6 +38,11 @@ class Processor:
 
         return mean
 
+    def slice_me(self,x):
+        print(x[:-2])
+        return x[:-2]
+
+
     def pre_process(self):
 
         # hi this is a confusing spaghetti code mess, you can attempt to dechiper it if you'd like but it will probably make no sense
@@ -45,8 +50,8 @@ class Processor:
         # makes new columns
         self.data['mean_grade'] = self.data['grades'].apply(lambda x : self.grade_avg(x))
         self.data['mean_effectiveness'] = self.data['effectiveness'].apply(lambda x : self.effectiveness_avg(x))
-        self.data['CRN'] = self.data['dept'] + self.data['course']
-        # print(self.data['CRN'])
+        self.data['CRN'] = self.data['dept'] + self.data['course'] + self.data['section'].apply(lambda x: self.slice_me(x))
+        print(self.data['CRN'])
 
         # makes fun data for the ones we left out
         for filter_type, active in self.info.iteritems():
@@ -104,5 +109,5 @@ class Processor:
         return self.processed_data
 
 if __name__ == '__main__':
-    processor = Processor(Query((2016.5,2014.0), "ART", False, False))
+    processor = Processor(Query((2016.5,2014.0), "CS", False, '150'))
     print(processor.get_processed_data())
