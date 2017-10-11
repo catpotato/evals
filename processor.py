@@ -47,6 +47,7 @@ and even a class if you want, but you will only get a single result
 
 also, the query object just needs to spit out a pandas dataframe, so we can change that if we want
 
+
 '''
 
 
@@ -94,7 +95,7 @@ class Processor:
         for filter_type, active in self.info.iteritems():
 
             # if the space in the query was left blank
-            if bool(active) == False:
+            if bool(active) == False or bool(active) == True:
 
                 max_dict = {"mean_grade" : 0, 'mean_effectiveness' : 0}
                 min_dict = {"mean_grade" : 4, 'mean_effectiveness' : 5}
@@ -166,5 +167,5 @@ class Processor:
         return self.processed_data
 
 if __name__ == '__main__':
-    processor = Processor(Query((2016.5,2015.0), False, False, False))
-    print(processor.get_processed_data()['dept']['difficulty']['max'])
+    processor = Processor(Query((2016.5,2016.0), False, False, 'Corvino'))
+    print(processor.get_processed_data()['professor']['difficulty']['max'])
