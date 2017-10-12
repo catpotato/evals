@@ -3,9 +3,9 @@ from bs4 import BeautifulSoup
 from sqlalchemy.ext.declarative import declarative_base
 
 import sqlalchemy as sqlalch
-import evaluation
+from evaluation_better import *
 
-years = [2014, 2013, 2012, 2011]
+years = [2016, 2015, 2014, 2013, 2012, 2011]
 semmesters = [10,30]
 departments = ['AFS', 'AGS', 'ART', 'AS', 'ASIA', 'BIOL', 'CE', 'CHE', 'CHEM', 'CHN', 'CL', 'CLSS', 'CM', 'CS', 'DOC', 'ECE', 'ECON', 'EDC', 'EGRS', 'ENG', 'ES', 'EVST', 'FAMS', 'FLL', 'FREN', 'FYS', 'GEOL', 'GERM', 'GOVT', 'GRK', 'HIST', 'IA', 'JAPN', 'LAT', 'MATH', 'ME', 'MS', 'NER', 'PHIL', 'PHYS', 'PSTD', 'PSYC', 'REL', 'RSS', 'SPAN', 'THTR', 'WGS']
 
@@ -26,7 +26,7 @@ def get_question_data(question, soup):
 
 if __name__ == '__main__':
 
-    engine = create_engine('sqlite:///data.db', echo=True)
+    engine = create_engine('sqlite:///data_better.db', echo=True)
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
 
@@ -40,10 +40,24 @@ if __name__ == '__main__':
     br.open("https://fac-eval.lafayette.edu")
 
     br.select_form(nr=1)
-    br.form['username'] = # nice try
-    br.form['password'] = # boyo
+    br.form['username'] = 'addisc'
+    br.form['password'] = 'dtd3RDCUcZP/'
 
     br.submit()
+
+    '''
+
+    COURSE (department + course + including L if a lab (i.e. CS150L))
+    SEMESTER (year.semester i.e 20150 for 2015-2016 semester 1, 20155 for 2015-2016 semester 2)
+    PROFESSOR (last name)
+    DEPT ('CS', 'ES', etc...)
+    LEVEL (100,200,300,400 etc)
+    RESPONSES (number of responses)
+    GRADES (string of grades)
+    EFFECTIVENESS (string of effectiveness)
+    UNIQUE_CRN (course + section)
+
+    '''
 
     for year in years:
         for semmester in semmesters:
@@ -63,11 +77,8 @@ if __name__ == '__main__':
                     # setup new evaluation
                     evaluation = Evaluation()
 
-                    # year
-                    evaluation.year = year
-
                     # semmester
-                    evaluation.semmester = semmester
+                    evaluation.semmester = year*10 + (semmester-10)/4
 
                     # course and section
                     raw_course = eval_soup.find_all(href = '#')[0].get_text()
@@ -75,21 +86,20 @@ if __name__ == '__main__':
                         course, section = raw_course.replace(department + ' ', '').split("-")
                     except ValueError:
                         course, section = raw_course.replace(department + ' ', '').split(" ")
-                    evaluation.course = course
 
-                    # section
-                    evaluation.section = section
+                    evaluation.course = department + course + section[:-2]
 
-                    # dept
-                    evaluation.dept = department
 
                     # professor
                     raw_heading = eval_soup.find_all(class_ = 'page_heading')[0].get_text()
-                    full_name = raw_heading.replace(raw_course, '')[1:]
+                    full_name = raw_heading.replace(raw_course, '')[1:][:-2]
                     try:
-                        evaluation.professor = full_name[:full_name.index(",")]
+                        evaluation.professor = full_name
                     except ValueError:
                         break
+
+                    # dept
+                    evaluation.dept = department
 
                     # responses
                     temp_soup = eval_soup.find(text='What grade do you expect in this course? ')
@@ -106,9 +116,12 @@ if __name__ == '__main__':
                     evaluation.set_effectiveness(get_question_data('The instructor\'s effectiveness in teaching the subject matter was: ',eval_soup))
 
                     # uniqueify
-                    evaluation.uniqueify()
+                    # evaluation.unique_crn = department + course + section
 
-                    #print(evaluation)
+                    # LEVEL
+                    evaluation.level = course[0]
+
+
                     session = Session()
                     session.add(evaluation)
                     try:

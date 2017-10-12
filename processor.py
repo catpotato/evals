@@ -47,6 +47,7 @@ and even a class if you want, but you will only get a single result
 
 also, the query object just needs to spit out a pandas dataframe, so we can change that if we want
 
+
 '''
 
 
@@ -88,13 +89,13 @@ class Processor:
         # makes new columns
         self.data['mean_grade'] = self.data['grades'].apply(lambda x : self.grade_avg(x))
         self.data['mean_effectiveness'] = self.data['effectiveness'].apply(lambda x : self.effectiveness_avg(x))
-        self.data['CRN'] = self.data['dept'] + self.data['course'] + self.data['section'].apply(lambda x: self.slice_me(x))
+        #self.data['CRN'] = self.data['dept'] + self.data['course'] + self.data['section'].apply(lambda x: self.slice_me(x))
 
         # makes fun data for the ones we left out
         for filter_type, active in self.info.iteritems():
 
             # if the space in the query was left blank
-            if bool(active) == False:
+            if bool(active) == False or bool(active) == True:
 
                 max_dict = {"mean_grade" : 0, 'mean_effectiveness' : 0}
                 min_dict = {"mean_grade" : 4, 'mean_effectiveness' : 5}
@@ -166,5 +167,5 @@ class Processor:
         return self.processed_data
 
 if __name__ == '__main__':
-    processor = Processor(Query((2016.5,2015.0), False, False, False))
-    print(processor.get_processed_data()['dept']['difficulty']['max'])
+    processor = Processor(Query((2016.5,2012.0), False, False, False))
+    print(processor.get_processed_data()['professor']['difficulty']['min'])
