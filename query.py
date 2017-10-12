@@ -65,7 +65,7 @@ class Query:
 
         # remove all of forbidden_years from query
         for forbidden_date in forbidden_dates:
-            q = q.filter(Evaluation.date != forbidden_date*10)
+            q = q.filter(Evaluation.semmester != forbidden_date*10)
 
         # convert to dict
         for u in q.all():

@@ -89,7 +89,7 @@ class Processor:
         # makes new columns
         self.data['mean_grade'] = self.data['grades'].apply(lambda x : self.grade_avg(x))
         self.data['mean_effectiveness'] = self.data['effectiveness'].apply(lambda x : self.effectiveness_avg(x))
-        self.data['CRN'] = self.data['dept'] + self.data['course'] + self.data['section'].apply(lambda x: self.slice_me(x))
+        #self.data['CRN'] = self.data['dept'] + self.data['course'] + self.data['section'].apply(lambda x: self.slice_me(x))
 
         # makes fun data for the ones we left out
         for filter_type, active in self.info.iteritems():
@@ -167,5 +167,5 @@ class Processor:
         return self.processed_data
 
 if __name__ == '__main__':
-    processor = Processor(Query((2016.5,2016.0), False, False, 'Corvino'))
-    print(processor.get_processed_data()['professor']['difficulty']['max'])
+    processor = Processor(Query((2016.5,2012.0), False, False, False))
+    print(processor.get_processed_data()['professor']['difficulty']['min'])
