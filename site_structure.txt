@@ -3,6 +3,72 @@ NOTE: (Able to select time interval over which all of these stats are defined in
 
 -------------- MAIN --------------
 
+compare || interesting || about
+
+------------ COMPARE -------------
+
+field's ( autocomplete-ish )
+
+maybe press a plus button, and these details come up, maybe google card-like interface would be kind of interesting?
+once query is made, it stays on the screen, and you can add as many as you want to the screen
+
+department:
+i.e. CS
+
+course:
+i.e. 150
+
+* potential addition here, if we want to scrape the course catalog we could let people search by course name instead
+
+professor
+maybe show picture preview along with gpa and teaching rating preview in the autocomplete field?
+- would involve scraping professor pictures from lafayette site too
+
+
+date range:
+slider would probably be best for this
+
+
+RESULTS (added to page):
+
+professor name
+class
+effectiveness mean along with a graph
+grade mean along with a graph
+
+
+
+
+
+----------- FUN FACTS ------------
+
+the stuff from processor.py (hardest professor stuff etc), might not be worth focussing on this until we have the compare part working, feels like just a fun extra feature, not important to get out before course selection
+
+
+------------- ABOUT --------------
+
+made by avery and clark
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OLD STUFF BELOW
+
+----------------------------------
+
+
+-------------- MAIN --------------
+
 graph all of grades of Lafayette over time
 
 professor:
