@@ -2,12 +2,9 @@
 {% block conditional_js %}
 {% endblock %}
 
-{% block conditional_css %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
-{% endblock %}
 {% block main %}
 
-<main>
+<main class="text-center">
   <div class="card" style="width: 20rem;">
   <img class="card-img-top" src="..." alt="Card image cap">
   <div class="card-body">
