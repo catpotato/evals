@@ -3,7 +3,6 @@ from evaluation import *
 from operator import add
 all_dates = [2016.5,2016.0,2015.5,2015.0,2014.5,2014.0,2013.5,2013.0,2012.5,2012.0,]
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 
 engine = create_engine('sqlite:///data.db', echo=True)
