@@ -38,11 +38,6 @@ grade mean along with a graph
 
 
 
-
-
-
-
-
 ----------- FUN FACTS ------------
 
 the stuff from processor.py (hardest professor stuff etc), might not be worth focussing on this until we have the compare part working, feels like just a fun extra feature, not important to get out before course selection
