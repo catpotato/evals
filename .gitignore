@@ -1,0 +1,13 @@
+
+.DS_Store
+venv
+.vscode
+*~
+changes.diff
+*.pyc
+*#
+bin
+lib
+.idea
+tmp
+.vscode
