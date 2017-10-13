@@ -1,7 +1,13 @@
 backports.functools-lru-cache==1.4
 beautifulsoup4==4.6.0
+click==6.7
 cycler==0.10.0
+Flask==0.12.2
+Flask-SQLAlchemy==2.3.2
 html5lib==0.999999999
+itsdangerous==0.24
+Jinja2==2.9.6
+MarkupSafe==1.0
 matplotlib==2.1.0
 mechanize==0.3.5
 numpy==1.13.3
@@ -13,3 +19,4 @@ six==1.11.0
 SQLAlchemy==1.1.14
 subprocess32==3.2.7
 webencodings==0.5.1
+Werkzeug==0.12.2
