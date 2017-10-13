@@ -168,4 +168,4 @@ class Processor:
 
 if __name__ == '__main__':
     processor = Processor(Query((2016.5,2012.0), False, False, False))
-    print(processor.get_processed_data()['professor']['difficulty']['min'])
+    print(processor.get_processed_data()['course']['effectiveness']['max'])
