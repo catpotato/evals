@@ -20,3 +20,5 @@ SQLAlchemy==1.1.14
 subprocess32==3.2.7
 webencodings==0.5.1
 Werkzeug==0.12.2
+flask-markdown==0.3
+markdown==2.6.9
