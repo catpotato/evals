@@ -37,6 +37,28 @@ effectiveness mean along with a graph
 grade mean along with a graph
 
 
+----------- FUTURE FEATURES ------------
+
+- individual page for each data type
+  - professor page
+    - all courses they've taught
+    - filterable by year/semester
+    - sort functionality (sort by easiness, effectiveness, etc.)
+  - course page
+    - all professors that have taught this course
+    - filterable by year/semester
+    - sort functionality (sort by easiness, effectiveness, etc.)
+  - department page
+    - 2 tabs, professors and courses
+    - filterable by year/semester
+    - all professors that have taught in this department
+    - all courses that have been offered by this department
+    - sort each tab by easiness, effectiveness, etc.
+
+- create new table for departments, professors (include pictures)
+search by course name
+filter by courses that will be taught in upcoming semester
+
 
 ----------- FUN FACTS ------------
 

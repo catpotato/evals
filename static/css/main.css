@@ -10,6 +10,10 @@ body {
   width: 400px;
 }
 
+.laf-color {
+  background-color: #65001C !important;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
