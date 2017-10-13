@@ -8,7 +8,6 @@ changes.diff
 *#
 bin
 lib
-.DS_Store
 .idea
 tmp
 .vscode
