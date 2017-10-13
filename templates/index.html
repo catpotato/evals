@@ -1,1 +1,30 @@
-<h1> this is the real test my dude</h1>
+{% extends "layout.html" %}
+{% block conditional_js %}
+{% endblock %}
+
+{% block conditional_css %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
+{% endblock %}
+{% block main %}
+
+<main>
+  <div class="card" style="width: 20rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</main>
+{% endblock %}
