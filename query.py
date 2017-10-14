@@ -54,9 +54,8 @@ class Query:
         # period
         # make a list of all of the years of the request
         date_range = [self.period[0]]
-        if(len(date_range) > 0):
-            while date_range[-1] != self.period[1]:
-                date_range.append(date_range[-1] -.5)
+        while date_range[-1] != self.period[1] and len(date_range) > 0:
+            date_range.append(date_range[-1] -.5)
 
         # make a list of years that you don't want
         forbidden_dates = all_dates
