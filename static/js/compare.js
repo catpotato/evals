@@ -1,16 +1,18 @@
 $(function(){
 
+  // initial card add
+  $('.card').clone().insertBefore('#plus-button').css('display','inline-block');
+
+  //
   $('#plus-button').click(function(){
-    $('.card').first().clone().insertBefore(this)
-    
+    // does a bunch, clones the template guy, then makes it noe longer invisible
+    $('.card').first().clone().insertBefore(this).css('display','inline-block')
+
+    // this is close functionality, has to be added here because each new card needs its own close mechanism
     $('.close').click(function(){
-      console.log('clicky')
       $(this).parent().parent().remove()
     })
 
   })
-
-
-
 
 })
