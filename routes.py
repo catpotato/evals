@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flaskext.markdown import Markdown
 
 app = Flask(__name__)
@@ -12,3 +12,7 @@ def home():
 def about():
 	content = open("README.md", "r").read()
 	return render_template('about.html', content=content)
+
+@app.route('/compare')
+def compare():
+	return render_template('compare.html')

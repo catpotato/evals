@@ -8,15 +8,16 @@
 		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 		<title>{% block title %}Lafayette Evaluations{% endblock %}</title>
 		<script src = "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
 		<!-- google's jquery -->
 		<script type=text/javascript>
   			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  			{% block conditional_js %}
-			{% endblock %}
+
   			//give global varibale for root of application
 		</script>
+		{% block conditional_js %}
+		{% endblock %}
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
 		{% block conditional_css %}
 		{% endblock %}

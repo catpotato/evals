@@ -1,0 +1,23 @@
+
+button{
+  background: white;
+
+}
+#plus-button{
+    margin: 0px 20px;
+}
+/*because for some reason bootstrap ain't working*/
+button:hover{
+  cursor: pointer;
+}
+
+input{
+  margin: 10px 0px;
+}
+h6{
+  padding: 20px 0px;
+}
+
+.card{
+  margin: 10px;
+}
