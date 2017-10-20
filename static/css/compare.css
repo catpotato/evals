@@ -7,7 +7,7 @@ button{
     margin: 0px 20px;
 }
 /*because for some reason bootstrap ain't working*/
-button:hover{
+input[type=button]:hover{
   cursor: pointer;
 }
 
