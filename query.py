@@ -9,11 +9,11 @@ engine = create_engine('sqlite:///data.db', echo=True)
 Base.metadata.create_all(engine)
 
 class Query:
-    def __init__(self, period, dept, course, prof):
+    def __init__(self, period=None, department=None, course=None, professor=None): # optional parameters
         self.period = period
         # in the format of [20XX.semmester, 20XX.semmester]
-        self.dept = dept
-        self.prof = prof
+        self.department = department
+        self.professor = professor
         self.course = course
         self.query_as_list_dict = []
         self.query_as_dataframe = pd.DataFrame()
@@ -28,8 +28,8 @@ class Query:
     ]
     '''
 
-    def query(self):
 
+    def query(self):
         Session = sessionmaker(bind=engine)
         session = Session()
 
@@ -37,34 +37,38 @@ class Query:
         q = session.query(Evaluation)
 
         # dept
-        if(bool(self.dept) == True):
-            print(self.dept)
-            q = q.filter(Evaluation.dept == str(self.dept))
+        if self.department:
+            q = q.filter(Evaluation.dept == str(self.department.upper()))
 
         # prof
-        if(bool(self.prof) == True):
-            print(self.prof)
-            q = q.filter(Evaluation.professor == self.prof)
+        if self.professor:
+            q = q.filter(Evaluation.professor == self.professor)
 
         # course
-        if(bool(self.course) == True):
-            print(self.course)
+        if self.course:
             q = q.filter(Evaluation.course == self.course)
 
         # period
         # make a list of all of the years of the request
+<<<<<<< HEAD
+        if self.period:
+            date_range = [self.period[0]]
+            while date_range and date_range[-1] != self.period[1]:
+                date_range.append(date_range[-1] -.5)
+=======
         date_range = [self.period[0]]
         while date_range[-1] != self.period[1] and len(date_range) > 0:
             date_range.append(date_range[-1] -.5)
+>>>>>>> master
 
-        # make a list of years that you don't want
-        forbidden_dates = all_dates
-        for allowed_date in date_range:
-            forbidden_dates.remove(allowed_date)
+            # make a list of years that you don't want
+            forbidden_dates = all_dates
+            for allowed_date in date_range:
+                forbidden_dates.remove(allowed_date)
 
-        # remove all of forbidden_years from query
-        for forbidden_date in forbidden_dates:
-            q = q.filter(Evaluation.semmester != forbidden_date*10)
+            # remove all of forbidden_years from query
+            for forbidden_date in forbidden_dates:
+                q = q.filter(Evaluation.semmester != forbidden_date*10)
 
         # convert to dict
         for u in q.all():

@@ -1,5 +1,5 @@
 body {
-  background: #e2e1e0;
+  background: #0;
   margin-bottom: 30px;
 }
 
@@ -10,7 +10,9 @@ body {
 }
 
 .laf-color {
+
   background-color: #65001C !important;
+  border-bottom: 3px solid #d18787;
 }
 
 /* Sticky footer styles
