@@ -1,15 +1,15 @@
-<div class="card" style="width: 20rem;">
-  <div class="card-body">
-    <button type="button" class="close" aria-label="Close">
+{% from "_formhelpers.html" import render_form %}
+<div class="card" id="card-0" style="width: 20rem;">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-1 py-0"></div>
+    <div class="col py-0"><h6 class="pb-0 pt-1">Add A Professor</h6></div>
+    <div class="col-1 py-0 pull-right"><button id="close-0" type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
-    </button>
-
-    <h6> add a new professor, my dude </h6>
-    <form>
-      <input type="text" class="form-control" name = "department" placeholder = "department">
-      <input type="text" class="form-control" name = "course" placeholder = "course">
-      <input type="text" class="form-control" name = "professor" placeholder = "professor">
-      <input type="button" class="btn btn-primary submit" value = "submit">
-    </form>
+    </button></div>
+    </div>
+  </div>
+  <div class="card-body">
+    {{ render_form(form) }}
   </div>
 </div>

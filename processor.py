@@ -157,7 +157,7 @@ class Processor:
 
     def __init__(self, query):
         self.query = query
-        self.info = {"dept": query.dept, "course": query.course, "professor": query.prof}
+        self.info = {"dept": query.department, "course": query.course, "professor": query.professor}
         self.data = query.get_query()
         self.processed_data = {}
 
