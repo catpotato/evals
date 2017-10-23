@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 from flaskext.markdown import Markdown
+from processor import Processor
 
 app = Flask(__name__)
 markdown = Markdown(app)
 
 @app.route('/')
 def home():
+	#q = Processor(Query((2016.5,2012.0), department, course, professor))
 	return render_template('index.html')
 
 @app.route('/about/')
@@ -27,4 +29,6 @@ def send_query():
 	print(course)
 	print(professor)
 
-	return jsonify(department = department, course = course, professor = professor)
+	# TODO make injection attacks impossible!!!!
+
+	return jsonify(Processor(Query((2016.5,2012.0), department, course, professor)))

@@ -1,23 +1,41 @@
 {% extends "layout.html" %}
+{% block conditional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/intro.css') }}" >
+{% endblock %}
 {% block main %}
-<main class="text-center">
-  <div class="card" style="width: 20rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<main>
+  <section id = "button-containter" class = "text-center">
+    <a href="#" class="btn btn-inline btn-danger btn-lg" role="button">Compare Professors</a>
+    <a href="#" class="btn btn-danger btn-lg" role="button">Explore the Data</a>
+  </section>
+  <h1>Some Curious Things</h1>
+  <h3> the easiest </h3>
+  <div class="card-group">
+  <div class = "card">
+    <div class = "card-header"> Professor </div>
+    <section class = "graphs">
+      <div class = "graph">&nbsp;</div>
+      <div class = "information">Thomas Hill</div>
+    </section>
+  </div>
+  <div class = "card">
+    <div class = "card-header"> Department </div>
+    <section class = "graphs">
+      <div class = "graph">&nbsp;</div>
+      <div class = "information">CS</div>
+    </section>
+  </div>
+  <div class = "card">
+    <div class = "card-header"> Course </div>
+    <section class = "graphs">
+      <div class = "graph">&nbsp;</div>
+      <div class = "information">CS 150</div>
+    </section>
   </div>
 </div>
-<div class="card" style="width: 20rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-<div class="card" style="width: 20rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+  <h3> the hardest </h3>
+  <h3> the most interesting </h3>
+  <h3> the least interesting </h3>
+
 </main>
 {% endblock %}

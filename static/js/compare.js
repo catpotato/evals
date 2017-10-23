@@ -10,7 +10,7 @@ $(function(){
 
 
 
-    // this is submit functionality, needs to be added here for the same reason above
+
 
 
 
@@ -28,8 +28,9 @@ function add_card(){
     $(this).parent().parent().remove()
   })
 
+  // this is submit functionality, needs to be added here for the same reason above
   $('.submit').last().click(function(){
-    console.log('ive been clicked')
+
     form = $(this).parent()
     //console.log($(this).parent().children('input[name="department"]').val())
 
