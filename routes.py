@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from processor import Processor
 from query import Query
-from wtforms import HiddenField, StringField
+from wtforms import StringField
 from wtforms.validators import DataRequired
 
 
