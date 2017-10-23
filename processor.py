@@ -170,6 +170,16 @@ class Processor:
     def get_processed_data(self):
         return self.processed_data
 
+    def get_processed_data_for_table(self):
+        processed_data = self.get_processed_data()
+    	final_data = {'difficulty' : {'min' : {}, 'max' : {}}, 'effectiveness' : {'min' : {}, 'max' : {}}}
+        for kind in processed_data:
+            for measure in processed_data[kind]:
+                for magnitude in processed_data[kind][measure]:
+                    final_data[measure][magnitude][kind] = processed_data[kind][measure][magnitude]
+
+        return final_data
+
     def get_preview(self):
         return self.preview
 

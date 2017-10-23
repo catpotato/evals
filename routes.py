@@ -23,8 +23,8 @@ class ProfessorForm(FlaskForm):
 
 @app.route('/')
 def home():
-	#q = Processor(Query((2016.5,2012.0), department, course, professor))
-	return render_template('index.html')
+
+	return render_template('index.html', data = Processor(Query()).get_processed_data_for_table())
 
 @app.route('/about/')
 def about():
