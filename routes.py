@@ -1,6 +1,7 @@
 from os import urandom
 from flask import Flask, render_template, request, jsonify
 from flaskext.markdown import Markdown
+from processor import Processor
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from processor import Processor
@@ -22,6 +23,7 @@ class ProfessorForm(FlaskForm):
 
 @app.route('/')
 def home():
+	#q = Processor(Query((2016.5,2012.0), department, course, professor))
 	return render_template('index.html')
 
 @app.route('/about/')
