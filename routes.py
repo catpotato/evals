@@ -23,8 +23,8 @@ class ProfessorForm(FlaskForm):
 
 @app.route('/')
 def home():
-	#q = Processor(Query((2016.5,2012.0), department, course, professor))
-	return render_template('index.html')
+
+	return render_template('index.html', data = Processor(Query()).get_processed_data_for_table())
 
 @app.route('/about/')
 def about():
@@ -41,6 +41,16 @@ def compare():
 
 	return render_template('compare.html', form=form)
 
+# you send a department and course, it gives you back info with a professor and gpa preview
+@app.route('/_get_preview', methods=['GET', 'POST'])
+def _get_departments():
+	period = request.args.get('period', None)
+	department = request.args.get('department', None)
+	course = request.args.get('course', None)
+	return jsonify(Processor(Query(period=period, department=department, course=course)).get_preview())
+
+
+@app.route('/_process_query')
 def _process_query(department=None, period=None, course=None, professor=None):
 	return Processor(Query(period=period, department=department, course=course, professor=professor))
 

@@ -5,37 +5,48 @@
 {% block main %}
 <main>
   <section id = "button-containter" class = "text-center">
-    <a href="#" class="btn btn-inline btn-danger btn-lg" role="button">Compare Professors</a>
+    <a href="/compare" class="btn btn-inline btn-danger btn-lg" role="button">Compare Professors</a>
     <a href="#" class="btn btn-danger btn-lg" role="button">Explore the Data</a>
   </section>
   <h1>Some Curious Things</h1>
-  <h3> the easiest </h3>
-  <div class="card-group">
-  <div class = "card">
-    <div class = "card-header"> Professor </div>
-    <section class = "graphs">
-      <div class = "graph">&nbsp;</div>
-      <div class = "information">Thomas Hill</div>
-    </section>
-  </div>
-  <div class = "card">
-    <div class = "card-header"> Department </div>
-    <section class = "graphs">
-      <div class = "graph">&nbsp;</div>
-      <div class = "information">CS</div>
-    </section>
-  </div>
-  <div class = "card">
-    <div class = "card-header"> Course </div>
-    <section class = "graphs">
-      <div class = "graph">&nbsp;</div>
-      <div class = "information">CS 150</div>
-    </section>
-  </div>
-</div>
-  <h3> the hardest </h3>
-  <h3> the most interesting </h3>
-  <h3> the least interesting </h3>
+  {% for measure in data %}
+    {% for magnitude in data[measure] %}
+      <h4>
+        {% if measure == 'difficulty'%}
+          {% if magnitude == 'max' %}
+            {{"The Easiest"}}
+          {% endif %}
+
+          {% if magnitude == 'min' %}
+            {{"The Hardest"}}
+          {% endif %}
+
+        {% endif %}
+
+        {% if measure == 'effectiveness'%}
+          {% if magnitude == 'max' %}
+            {{"The Most Interesting"}}
+          {% endif %}
+
+          {% if magnitude == 'min' %}
+            {{"The Least Interesting"}}
+          {% endif %}
+
+        {% endif %}
+      </h4>
+      <div class="card-group">
+        {% for type in data[measure][magnitude] %}
+        <div class = "card">
+          <div class = "card-header"> {{type}} </div>
+          <section class = "graphs">
+            <div class = "graph">&nbsp;</div>
+            <div class = "information">{{data[measure][magnitude][type][type]}}</div>
+          </section>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endfor %}
 
 </main>
 {% endblock %}

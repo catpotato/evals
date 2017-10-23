@@ -50,18 +50,19 @@ class Query:
 
         # period
         # make a list of all of the years of the request
-        date_range = [self.period[0]]
-        while date_range[-1] != self.period[1] and len(date_range) > 0:
-            date_range.append(date_range[-1] -.5)
+        if self.period:
+            date_range = [self.period[0]]
+            while date_range[-1] != self.period[1] and len(date_range) > 0:
+                date_range.append(date_range[-1] -.5)
 
-            # make a list of years that you don't want
-            forbidden_dates = all_dates
-            for allowed_date in date_range:
-                forbidden_dates.remove(allowed_date)
+                # make a list of years that you don't want
+                forbidden_dates = all_dates
+                for allowed_date in date_range:
+                    forbidden_dates.remove(allowed_date)
 
-            # remove all of forbidden_years from query
-            for forbidden_date in forbidden_dates:
-                q = q.filter(Evaluation.semmester != forbidden_date*10)
+                # remove all of forbidden_years from query
+                for forbidden_date in forbidden_dates:
+                    q = q.filter(Evaluation.semmester != forbidden_date*10)
 
         # convert to dict
         for u in q.all():
