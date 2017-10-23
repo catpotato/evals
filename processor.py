@@ -101,6 +101,7 @@ class Processor:
                 min_dict = {"mean_grade" : 4, 'mean_effectiveness' : 5}
 
                 stats = {'difficulty': {'max' : max_dict, 'min' : min_dict}, 'effectiveness': {'max' : max_dict, 'min' : min_dict}}
+                self.preview[filter_type] = {}
 
                 for unique_type in self.data[filter_type].drop_duplicates():
 
@@ -152,6 +153,8 @@ class Processor:
                     if info['mean_effectiveness'] < stats['effectiveness']['min']['mean_effectiveness']:
                         stats['effectiveness']['min'] = info
 
+                    self.preview[filter_type][unique_type] = info
+
                 self.processed_data[filter_type] = stats
 
 
@@ -160,11 +163,15 @@ class Processor:
         self.info = {"dept": query.department, "course": query.course, "professor": query.professor}
         self.data = query.get_query()
         self.processed_data = {}
+        self.preview = {}
 
         self.pre_process()
 
     def get_processed_data(self):
         return self.processed_data
+
+    def get_preview(self):
+        return self.preview
 
 if __name__ == '__main__':
     processor = Processor(Query((2016.5,2012.0), False, False, False))
